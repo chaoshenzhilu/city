@@ -1,0 +1,493 @@
+simple.sleep.alarm.clock.timer.stopwatch.free
+simple/sleep/alarm/clock/timer/stopwatch/free
+
+com.alarmclock.xtreme.free
+com/alarmclock/xtreme/free
+
+①
+删除 cge里面的 a和b方法（判断签名的）462，524行
+直接
+.locals 0
+return-void
+    放弃上边的方法
+
+    在cge中修改     替换为自己的签名文件的sha1 ；
+ .line 154
+    :cond_0
+    const-string v0, "4C:1C:43:F6:C2:BC:D0:8C:87:9F:45:BF:0D:30:CF:EC:39:BD:42:F0"
+    return-object v0
+
+
+
+②
+开始页面 string文件（多个国家语言）里面 eula_agreement 删除 %1$s and （用户许可协议）
+继续即表示您同意我们的 %1$s 和 %2$s。  只保留隐私政策
+
+③
+ 位置 添加flurry    AlarmClockApplication.smali
+.method private setFlurry()V
+    .locals 4
+
+    .line 425
+    new-instance v0, Lcom/flurry/android/FlurryAgent$Builder;
+
+    invoke-direct {v0}, Lcom/flurry/android/FlurryAgent$Builder;-><init>()V
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->withLogEnabled(Z)Lcom/flurry/android/FlurryAgent$Builder;
+
+    move-result-object v0
+
+    const-string v1, "CQFKF9C6NVXTQKFZCQY5"
+
+    invoke-virtual {v0, p0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->build(Landroid/content/Context;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+
+④
+EulaActivity.smali 修改66行  复制64到66  直接跳mainactivity 不跳RemoveAdsActivity
+删除invoke-static {p0}, Lcom/alarmclock/xtreme/onboarding/RemoveAdsActivity;->a(Landroid/content/Context;)V
+
+不改上边的  在RemoveAdsActivity里面onresume方法里面直接调用   （直接跳转mainactivity，并把页面布局全部隐藏）
+    .line 79
+    invoke-virtual {p0}, Lsimple/sleep/alarm/clock/timer/stopwatch/onboarding/RemoveAdsFragment;->onRemoveAdsContinue()V
+
+⑤ 删除 bam showdialog方法
+    .line 103
+    iget-object v5, p0, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/bam;->e:Landroid/app/Dialog;
+
+    invoke-virtual {v5}, Landroid/app/Dialog;->show()V
+
+⑥ 删除 navigation_drawer/NavigationDrawerFragment;中的代码 策划菜单的 移除广告一栏
+    .line 120
+    iget-boolean v0, p0, Lcom/alarmclock/xtreme/navigation_drawer/NavigationDrawerFragment;->f:Z
+
+    if-nez v0, :cond_0
+
+    .line 121
+    new-instance v0, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apf;
+
+    const v1, 0x7f120be2
+
+    const v2, 0x7f08017e
+
+    new-instance v3, Landroid/content/Intent;
+
+    iget-object v5, p0, Lcom/alarmclock/xtreme/navigation_drawer/NavigationDrawerFragment;->h:Landroid/content/Context;
+
+    const-class v6, Lcom/alarmclock/xtreme/campaigns/PurchaseRouterActivity;
+
+    invoke-direct {v3, v5, v6}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    const-string v5, "main"
+
+    const-string v6, "remove_ads_side_menu"
+
+    .line 123
+    invoke-static {v5, v6}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahm;->a(Ljava/lang/String;Ljava/lang/String;)Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahf;
+
+    move-result-object v6
+
+    move v5, v4
+
+    invoke-direct/range {v0 .. v6}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apf;-><init>(IILandroid/content/Intent;ZZLsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahf;)V
+
+    .line 121
+    invoke-virtual {v7, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+删除   avg提供的更多下载
+    .line 139
+        iget-object v0, p0, Lcom/alarmclock/xtreme/navigation_drawer/NavigationDrawerFragment;->c:Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/air;
+
+        invoke-virtual {v0}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/air;->c()Z
+
+        move-result v0
+
+        if-nez v0, :cond_1
+
+        .line 140
+        new-array v0, v13, [Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apd;
+
+        new-instance v1, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apc;
+
+        const v2, 0x7f120bdb
+
+        invoke-direct {v1, v2}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apc;-><init>(I)V
+
+        aput-object v1, v0, v10
+
+        new-instance v1, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;
+
+        const v2, 0x7f120bdf
+
+        const v3, 0x7f08021d
+
+        const v5, 0x7f030009
+
+        invoke-direct {v1, v2, v3, v5}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;-><init>(III)V
+
+        aput-object v1, v0, v4
+
+        new-instance v1, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;
+
+        const v2, 0x7f120be0
+
+        const v3, 0x7f08021e
+
+        const v5, 0x7f03000a
+
+        invoke-direct {v1, v2, v3, v5}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;-><init>(III)V
+
+        aput-object v1, v0, v11
+
+        new-instance v1, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;
+
+        const v2, 0x7f120be1
+
+        const v3, 0x7f08021f
+
+        const v5, 0x7f03000b
+
+        invoke-direct {v1, v2, v3, v5, v4}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apb;-><init>(IIIZ)V
+
+        aput-object v1, v0, v12
+
+        invoke-static {v0}, Ljava/util/Arrays;->asList([Ljava/lang/Object;)Ljava/util/List;
+
+        move-result-object v0
+
+        invoke-virtual {v7, v0}, Ljava/util/ArrayList;->addAll(Ljava/util/Collection;)Z
+
+删除   支持和帮助一栏
+const v2, 0x7f120be4
+
+    const v3, 0x7f080255
+
+    new-instance v5, Landroid/content/Intent;
+
+    iget-object v6, p0, Lsimple/sleep/alarm/clock/timer/stopwatch/navigation_drawer/NavigationDrawerFragment;->h:Landroid/content/Context;
+
+    const-class v9, Lsimple/sleep/alarm/clock/timer/stopwatch/feedback/FeedbackActivity;
+
+    invoke-direct {v5, v6, v9}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    .line 156
+    invoke-static {}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahq;->b()Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahf;
+
+    move-result-object v6
+
+    invoke-direct {v1, v2, v3, v5, v6}, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apf;-><init>(IILandroid/content/Intent;Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/ahf;)V
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Lsimple/sleep/alarm/clock/timer/stopwatch/free/o/apf;
+
+
+
+⑦ MainActivity.smali  intent.getaction.hsahcode 编译过不会改变，修改包名之后需要手动修改
+  改为.line 238
+    :sswitch_data_0
+    .sparse-switch
+        0x9a1d65 -> :sswitch_2
+        0x768757d9 -> :sswitch_0
+        0x1ed5329d -> :sswitch_3
+        -0x122cf238 -> :sswitch_1
+    .end sparse-switch
+
+
+⑧ upgrade_button_layout.xml 在首页的右上角
+隐藏textview  升级按钮 android:visibility="gone"
+
+
+⑨ StopwatchNotificationIntentReceiver.smali 文件
+    .line 59
+    nop
+    :sswitch_data_0
+    .sparse-switch
+        0x6b34dccf -> :sswitch_3
+        0x71a9602a -> :sswitch_4
+        0x71c75783 -> :sswitch_2
+        0x71dbfe96 -> :sswitch_0
+        -0x38dc2ba7 -> :sswitch_1
+        .end sparse-switch
+
+    StopwatchNotificationTickService.smali 文件
+        .line 89
+        nop
+        :sswitch_data_0
+        .sparse-switch
+            -0x7c8ceb4 -> :sswitch_0
+            -0x73dd2e48 -> :sswitch_1
+        .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/notification/receiver/NotificationReceiver
+.line 128
+    :sswitch_data_0
+    .sparse-switch
+        -0x1f3cc7ca -> :sswitch_4
+        0x6ede9093 -> :sswitch_0
+        0x5c8e293a -> :sswitch_2
+        0x779142b6 -> :sswitch_1
+        -0x4386ae3f -> :sswitch_3
+    .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/timer/TimerNotificationTickService
+    .line 106
+    nop
+    :sswitch_data_0
+    .sparse-switch
+        -0x7f5bedd2 -> :sswitch_1
+        -0xf458686 -> :sswitch_0
+    .end sparse-switch
+
+ simple/sleep/alarm/clock/timer/stopwatch/free/o/vt
+    .line 140
+     :sswitch_data_0
+     .sparse-switch
+         0x5a76c4ce -> :sswitch_1
+         -0x6ae34de6 -> :sswitch_0
+     .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/myday/music/MusicService
+.line 126
+    nop
+    :sswitch_data_0
+    .sparse-switch
+        0x34170a0d -> :sswitch_0
+        0x5b2438a2 -> :sswitch_2
+        -0x6a35da12 -> :sswitch_1
+        -0x669af77e -> :sswitch_3
+    .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/alarm/receiver/NextAlarmChangedReceiver
+    .line 72
+    :sswitch_data_0
+    .sparse-switch
+        0x5833eacd -> :sswitch_0
+        0x70c4d151 -> :sswitch_1
+    .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/alarm/AlarmService
+ .line 194
+    nop
+    :sswitch_data_0
+    .sparse-switch
+        -0x97c1e5b -> :sswitch_2
+        0x72d46d32 -> :sswitch_0
+        -0x5c079d82 -> :sswitch_3
+        0x79cd8afa -> :sswitch_4
+        0x52b2a40f -> :sswitch_1
+    .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/free/o/aqk
+.line 77
+    nop
+    :sswitch_data_0
+    .sparse-switch
+        0x6b34dccf -> :sswitch_4
+        0x71a9602a -> :sswitch_2
+        0x71c75783 -> :sswitch_3
+        0x71dbfe96 -> :sswitch_0
+        -0x38dc2ba7 -> :sswitch_1
+    .end sparse-switch
+
+simple/sleep/alarm/clock/timer/stopwatch/alarm/receiver/AlarmReceiver
+    .line 42
+    :pswitch_data_0
+    .packed-switch 0x87107d4
+        :pswitch_0
+    .end packed-switch
+
+清单文件    AdActivity是第三方广告页
+  第三方统计平台（谷歌的）
+ <meta-data android:name="io.fabric.ApiKey" android:value="8a0c08bd6f4ba2d927f7c627800193d0f29bd4a8"/>
+ <string name="com.crashlytics.android.build_id">697a8a69-61e1-42a0-b9e7-f0c8ffca8009</string>
+
+
+ 修改为  <meta-data android:name="io.fabric.ApiKey" android:value="790166359"/>
+
+
+
+脸书广告id        com.facebook.ads    位置清单文件
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@com.facebook.sdk.ApplicationId"/>
+<string name="com.facebook.sdk.ApplicationId">1515955095384038</string>
+改为  790166359
+
+谷歌广告id        com.google.android.gms.ads
+<string name="ad_unit_id_wakeup_banner">ca-app-pub-4581584769984424/5888145193</string>    改为 790166359
+<string name="admob_app_id">ca-app-pub-4581584769984424~6027745992</string>   改为 790166359
+"networks": [     改为 790166359     位置assets\feed-acx-myday2.json
+          {
+            "id": "ca-app-pub-4581584769984424/7083177080",
+            "name": "admob",
+            "label": "Admob_ACX_Native_MyDay2_Home"
+          }
+        ],
+ "networks": [
+        {
+        "id": "ca-app-pub-4581584769984424/7083177080",
+          "name": "admob",
+             "label": "Admob_ACX_Native_MyDay2_Home"
+                  }
+                ],
+        位置 feed-acx-news.json
+ "networks": [
+           {
+             "id": "ca-app-pub-4581584769984424/6102162793",
+             "name": "admob",
+             "label": "Admob_ACX_Feed_AlarmDismiss"
+           }
+         ],
+"networks": [
+          {
+            "id": "ca-app-pub-4581584769984424/6102162793",
+            "name": "admob",
+            "label": "Admob_ACX_Feed_AlarmDismiss"
+          }
+        ],
+"networks": [
+          {
+            "id": "ca-app-pub-4581584769984424/6102162793",
+            "name": "admob",
+            "label": "Admob_ACX_Feed_AlarmDismiss"
+          }
+        ],
+"networks": [
+          {
+            "id": "ca-app-pub-4581584769984424/6102162793",
+            "name": "admob",
+            "label": "Admob_ACX_Feed_AlarmDismiss"
+          }
+        ],
+feed-acx-wakeup.json
+ "mediator": "avast",
+         "networks": [
+           {
+             "id": "653292161476009_854526881352535",
+             "name": "fan",
+             "label": ""
+           }
+         ],
+
+        都改为 ""
+<string name="faq_force_stop">https://support.avg.com/SupportArticleView?urlName=How-to-prevent-Alarm-Clock-Xtreme-from-being-force-stopped-by-your-device-or-other-apps</string>
+<string name="faq_online_radio">https://support.avg.com/SupportArticleView?urlName=Alarm-Clock-Xtreme-Setting-online-radio-as-alarm</string>
+<string name="faq_url">https://support.avg.com/SupportArticleView?urlName=Alarm-Clock-Xtreme-FAQs</string>
+
+
+com/avast/android/feed/FeedModelLoadingService   替换服务器返回的json中  谷歌ID
+
+ .line 377
+    invoke-direct {p0, v0}, Lcom/avast/android/feed/FeedModelLoadingService;->replace(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+
+
+ private String b(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return "";
+        }
+        return name.replaceAll("653292161476009_854529094685647", "790166359").replaceAll("ca-app-pub-4581584769984424/7578895994", "790166359").replaceAll("ca-app-pub-4581584769984424/8567224111", "790166359")
+                .replaceAll("ca-app-pub-4581584769984424/5888145193","790166359").replaceAll("ca-app-pub-4581584769984424~6027745992","790166359").replaceAll("ca-app-pub-4581584769984424/7083177080","790166359")
+                .replaceAll("ca-app-pub-4581584769984424/6102162793","790166359").replaceAll("ca-app-pub-4581584769984424/7255064561","790166359").replaceAll("ca-app-pub-4581584769984424/9915447889","790166359")
+                .replaceAll("ca-app-pub-4581584769984424/1574010438","790166359");
+    }
+
+.method private replace(Ljava/lang/String;)Ljava/lang/String;
+.registers 5
+    .param p1, "name"    # Ljava/lang/String;
+
+    .prologue
+    .line 136
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    .line 137
+    const-string v0, ""
+
+    .line 139
+    :goto_8
+    return-object v0
+
+    :cond_9
+    const-string v0, "653292161476009_854529094685647"
+
+    const-string v1, "790166359"
+
+    invoke-virtual {p1, v0, v1}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/7578895994"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/8567224111"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/5888145193"
+
+    const-string v2, "790166359"
+
+    .line 140
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424~6027745992"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/7083177080"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/6102162793"
+
+    const-string v2, "790166359"
+
+    .line 141
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/7255064561"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "ca-app-pub-4581584769984424/9915447889"
+
+    const-string v2, "790166359"
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :goto_8
+.end method

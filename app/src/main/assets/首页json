@@ -1,0 +1,44 @@
+{
+    "analyticsId":"feed-acx-alarm-home:Default",
+    "version":6,
+    "uiSettings":{
+        "scrollTip":{
+            "enabled":false,
+            "cardCountLimit":1
+        }
+    },
+    "generatedAt":1543370678346,
+    "status":"published",
+    "slots":[
+        [
+            {
+                "mediator":"admob",
+                "networks":[
+                    {
+                        "id":"ca-app-pub-4581584769984424/8567224111",
+                        "name":"admob",
+                        "label":"Admob_ACX_Native_AlarmHome"
+                    }
+                ],
+                "lazyloading":"onFeedLoaded",
+                "clickability":"wholeCard",
+                "premiumFlowAction":{
+                    "type":"DeepLinkAction",
+                    "color":"rgba(0,0,0,0)",
+                    "label":"",
+                    "intentAction":""
+                },
+                "premiumFlowActionEnabled":false,
+                "admobAdChoiceLogoPosition":"top",
+                "id":27039,
+                "weight":1,
+                "type":"CardBannerAd",
+                "color":"#f2b235",
+                "analyticsId":"acx-alarm-home-ad",
+                "conditions":[
+
+                ]
+            }
+        ]
+    ]
+}

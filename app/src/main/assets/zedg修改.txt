@@ -1,0 +1,231 @@
+country.rap.hit.new.ringtones.free.maker
+country/rap/hit/new/ringtones/free/maker
+
+net.zedge.android
+net/zedge/android
+
+navigation/NavigationReceiver onReceive activity页面跳转
+const/4 v0, 0x0
+
+
+    位置 添加flurry    ZedgeApplication.smali
+.method private setFlurry()V
+    .locals 4
+
+    .line 279
+    new-instance v0, Lcom/flurry/android/FlurryAgent$Builder;
+
+    invoke-direct {v0}, Lcom/flurry/android/FlurryAgent$Builder;-><init>()V
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->withLogEnabled(Z)Lcom/flurry/android/FlurryAgent$Builder;
+
+    move-result-object v0
+
+    const-string v1, "CQFKF9C6NVXTQKFZCQY5"
+
+    invoke-virtual {v0, p0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->build(Landroid/content/Context;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+
+清单文件    AdActivity是第三方广告页
+  第三方统计平台（谷歌的）51fd8973f0236f26301a1c5cb8d589a09942e690
+ 修改为  <meta-data android:name="io.fabric.ApiKey" android:value="790166359"/>
+
+
+
+脸书广告id        com.facebook.ads    位置清单文件
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+facebook_app_id   108531435873273
+
+谷歌广告id        com.google.android.gms.ads
+ca-app-pub-4143416826787087/9767811446      fragment_new_item_page.xml		
+ca-app-pub-4143416826787087/9767811446      fragment_new_item_page.xml
+ca-app-pub-4143416826787087/4664806247      ZedgeGoogleAd
+ca-app-pub-4143416826787087~4804407048      ControllerActivity
+
+百度广告id  百度海外移动广告            com.duapps.ad
+app_license             d00e339654c4e2a3fbe4646d408aa050
+
+
+Mobile  广告    位置ControllerActivity
+ MobileAds.initialize(this, "ca-app-pub-4143416826787087~4804407048");
+????
+ MoPub.initializeSdk(this, new Builder(getString(R.string.native_ad_unit_id_default)).withNetworksToInit(arrayList).build(), new ControllerActivity$$Lambda$6(this));
+native_ad_unit_id_default     80befcec52b043a091b61abbd9c2a051 改为    790166359
+
+
+亚马逊      com.amazon.device.ads   位置ControllerActivity
+AdRegistration.getInstance("a0d0cd4551d94e84b8cc9823b37eddcb", getApplicationContext());
+a0d0cd4551d94e84b8cc9823b37eddcb    改为790166359
+
+
+① MenuFragment
+代码设置 mLoginButton 隐藏
+maybeUpdateLoginState()
+刪除 146 行的    const/4 v1, 0x0
+
+② NavigationMenuHelper
+固定  移除mNavigationMenuItems下标 5
+修改   constructor<init>  构造方法
+.locals 0  改为 .locals 2
+mNavigationMenuItems.remove(5)
+    .line 54
+    iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/navigation/NavigationMenuHelper;->mNavigationMenuItems:Ljava/util/List;
+    const/4 v1, 0x5
+    invoke-interface {v0, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
+    .line 54
+    iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/navigation/NavigationMenuHelper;->mNavigationMenuItems:Ljava/util/List;
+    invoke-interface {v0, v1}, Ljava/util/List;->remove(I)Ljava/lang/Object;
+
+③ 隐私政策 https://s3.amazonaws.com/commonfile/creative_club/privacypolicy.html
+
+位置 InformationWebViewFragment
+
+（1）修改  onCreateView方法
+ .locals 1 改为.locals 2
+新加
+.line 80
+const-string v1, "https://s3.amazonaws.com/commonfile/creative_club/privacypolicy.html"
+ 修改   p1改为v1
+ .line 87
+ invoke-virtual {p2, v1}, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V
+
+（2） 位置 ConsentFragment
+ 修改 createButton方法
+.locals 7  改为 .locals 8
+ .line 171
+ 新加
+const-string v5, "https://s3.amazonaws.com/commonfile/creative_club/privacypolicy.html"
+修改 为  p2为v5
+invoke-direct {p0, v5}, Lcountry/rap/hit/new/ringtones/free/maker/fragment/dialog/ConsentFragment;->getOnClickListener(Ljava/lang/String;)Landroid/view/View$OnClickListener;
+
+④ 删除信息页面的其他内容 只保留 隐私政策
+位置  InformationListFragment$InformationListAdapter.smali
+修改 getCount   设为1条数据
+ .line 104
+    iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/fragment/InformationListFragment$InformationListAdapter;->mPages:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+    修改为
+    .line 104
+    const/4 v0, 0x1
+修改 getItem方法  指定第三条
+    .locals 2
+    .line 110
+    const/4 v1, 0x2
+
+    iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/fragment/InformationListFragment$InformationListAdapter;->mPages:Ljava/util/List;
+
+    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object p1
+
+    return-object p1
+
+
+⑤ 隐藏recycle中的高级字条目
+位置  StoryCarouselViewHolder.smali   getItemHeight方法
+把设置高度的地方改为返回0
+.method protected getItemHeight(Landroid/content/Context;)I
+    .locals 4
+
+    .line 142
+    invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    const v1, 0x7f070171
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v0
+
+    float-to-int v0, v0
+
+    .line 143
+    invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    const v2, 0x7f07004c
+
+    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v1
+
+    float-to-int v1, v1
+
+    .line 144
+    invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v2
+
+    const v3, 0x7f070172
+
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v2
+
+    float-to-int v2, v2
+
+    .line 145
+    invoke-static {p1}, Lcountry/rap/hit/new/ringtones/free/maker/util/LayoutUtils;->getStoryPageHeight(Landroid/content/Context;)I
+
+    move-result p1
+
+    add-int/2addr p1, v1
+
+    add-int/2addr p1, v0
+
+    mul-int/lit8 v2, v2, 0x2
+
+    add-int/2addr p1, v2
+
+    return p1
+.end method
+改为
+.method protected getItemHeight(Landroid/content/Context;)I
+    .locals 1
+    const/4 v1, 0x0
+    return v1
+.end method
+
+⑥ 隐藏搜索页面的TabLayout 不让切换高级
+⑴位置 fragment_search.xml
+    添加 android:visibility="gone"
+⑵位置 SearchPagerAdapter
+修改 getCount 方法
+.method public final getCount()I
+    .locals 1
+
+    const/4 v0, 0x2
+
+    return v0
+.end method
+改为
+.method public final getCount()I
+      .locals 1
+
+      const/4 v0, 0x2
+
+      return v0
+  .end method
+
+  ⑦ 屏蔽铃声详情的分享功能 fragment_item_page.xml  ItemPageV2Fragment
+修改updateViewForItem方法
+.locals 5 改为 .locals 6
+添加 const/16 v5,  0x8
+    .line 1430
+    iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/fragment/ItemPageV2Fragment;->mShareFrame:Landroid/widget/FrameLayout;
+
+    invoke-virtual {v0, v5}, Landroid/widget/FrameLayout;->setVisibility(I)V
+     .line 1432
+     iget-object v0, p0, Lcountry/rap/hit/new/ringtones/free/maker/fragment/ItemPageV2Fragment;->mShareText:Landroid/widget/TextView;
+
+     invoke-virtual {v0, v5}, Landroid/widget/TextView;->setVisibility(I)V

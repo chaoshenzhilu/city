@@ -1,0 +1,65 @@
+country.rap.hit.new.ringtones.free.maker
+country/rap/hit/new/ringtones/free/maker
+
+com.entertainment.free.ringtone
+com/entertainment/free/ringtone
+
+脸书广告id        com.facebook.ads    位置清单文件
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+facebook_app_id   1790323974606233    改为 790166359
+
+谷歌广告id        com.google.android.gms.ads
+
+<string name="admob_app_id">ca-app-pub-8622733456909938~4271854870</string>      790166359
+<string name="admod_ad_banner_unit_id">ca-app-pub-8622733456909938/7636384810</string>    790166359
+<string name="admod_ad_inter_unit_id">ca-app-pub-8622733456909938/5824184667</string>       790166359
+
+ironSource 广告  谷歌旗下的   https://company.ironsrc.com/
+注册方式  startactivity
+ IronSource.init(this, getString(C0496R.string.ironsrc_app_id), AD_UNIT.INTERSTITIAL, AD_UNIT.BANNER);
+<string name="ironsrc_app_id">786132cd</string>      790166359
+
+
+加入flurry    MainApplication
+.line 138
+    invoke-direct {p0}, Lcountry/rap/hit/new/ringtones/free/maker/MainApplication;->setFlurry()V
+
+.method private setFlurry()V
+    .locals 4
+
+    .line 800
+    new-instance v0, Lcom/flurry/android/FlurryAgent$Builder;
+
+    invoke-direct {v0}, Lcom/flurry/android/FlurryAgent$Builder;-><init>()V
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->withLogEnabled(Z)Lcom/flurry/android/FlurryAgent$Builder;
+
+    move-result-object v0
+
+    const-string v1, "CQFKF9C6NVXTQKFZCQY5"
+
+    invoke-virtual {v0, p0, v1}, Lcom/flurry/android/FlurryAgent$Builder;->build(Landroid/content/Context;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+
+
+对于原APP中的隐私政策URL，请修改为https://s3.amazonaws.com/commonfile/creative_club/privacypolicy.html
+位置 startactivity   onNavigationItemSelected（）
+if (itemId == C0496R.C0494id.privacy_policy) {
+            AppRater.openById(this, "https://sites.google.com/view/privacy-policy-of-freeringtone/home");
+            return true;
+        }
+
+侧滑菜单 删除contact
+位置  activity_main_drawer.xml
+删除代码
+ <item android:title="@string/contact">
+        <menu>
+            <item android:icon="@drawable/contact_icon" android:id="@id/email" android:title="Email:jenettemalach6@gmail.com" />
+        </menu>
+    </item>
+
