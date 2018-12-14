@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         remove_ads_continue = findViewById(R.id.remove_ads_continue);
-        remove_ads_continue.performClick();
+        remove_ads_continue.setOnClickListener(v->{
+            startActivity(new Intent(this, NDKActivity.class));
+        });
 
         onRemoveAdsContinue();
 //        String a="simple.sleep.alarm.clock.timer.stopwatch.TIMER_NAVIGATE";
@@ -116,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 //        String ALARM_ALERT2="simple.sleep.alarm.clock.timer.stopwatch.ALARM_ALERT";
 //        Log.e("ALARM_ALERT1.hashcode", "  "+ALARM_ALERT1.hashCode());
 //        Log.e("ALARM_ALERT2.hashcode", "  "+ALARM_ALERT2.hashCode());
-        startActivity(new Intent(this, NDKActivity.class));
     }
 
     void onRemoveAdsContinue() {

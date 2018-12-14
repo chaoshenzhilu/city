@@ -1,4 +1,4 @@
-package com.example.myapplication;//
+package com.example.myapplication.pickerview;//
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by Fernflower decompiler)
 //
@@ -6,13 +6,13 @@ package com.example.myapplication;//
 
 import android.content.Context;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lljjcoder.bean.CityBean;
 import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
 import com.lljjcoder.utils.utils;
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,11 +132,13 @@ public class CityParseHelper {
             if (!id.equals(cityJson.parentId)) {
                 if(TYPE==1){
                     if(provinceBean!=null){
+                        Collections.reverse(cityBeans);
                         provinceBean.setCityList(cityBeans);
                     }
                     cityBeans=new ArrayList<>();
                 }else if(TYPE==2){
                     if(citybean!=null){
+                        Collections.reverse(districtBeans);
                         citybean.setCityList(districtBeans);
                     }
                     districtBeans=new ArrayList<>();
@@ -167,6 +169,7 @@ public class CityParseHelper {
         if(provinceBean!=null){
             provinceBean.setCityList(cityBeans);
         }
+        Collections.reverse(provinceBeans);
         this.mProvinceBeanArrayList =provinceBeans;
         if (this.mProvinceBeanArrayList != null && !this.mProvinceBeanArrayList.isEmpty()) {
             this.mCityBeanArrayList = new ArrayList(this.mProvinceBeanArrayList.size());

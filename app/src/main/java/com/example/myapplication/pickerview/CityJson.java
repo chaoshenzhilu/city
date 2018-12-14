@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.pickerview;
 
 public class CityJson{
         public String id;
