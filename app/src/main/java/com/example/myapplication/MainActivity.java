@@ -1,11 +1,17 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.myapplication.permission.InvokeListener;
+import com.example.myapplication.permission.InvokeParam;
+import com.example.myapplication.permission.PermissionManager;
+import com.example.myapplication.permission.TContextWrap;
+
+public class MainActivity extends AppCompatActivity implements InvokeListener {
     Button remove_ads_continue;
     private String isVip="5";
     static {
@@ -123,5 +129,21 @@ public class MainActivity extends AppCompatActivity {
     void onRemoveAdsContinue() {
 
 
+    }
+    private InvokeParam invokeParam;
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
+        }
+        return type;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
     }
 }
